@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -8,7 +10,7 @@ import java.util.Scanner;
  */
 public class MadLibs {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		System.out.println("Welcome ");
 		System.out.println("Provide words and phrases to fill in story");
@@ -23,6 +25,7 @@ public class MadLibs {
 		boolean done = false;
 		do {
 			System.out.print("(C)reate a Mid lib, (V)iew, or (Q)uit");
+			System.out.print("");
 			String command = console.nextLine();
 			Scanner input;
 			PrintStream output;
@@ -30,6 +33,9 @@ public class MadLibs {
 				case "C":
 					break;
 				case "V":
+					input = getInputScanner(console);
+					
+					input.close();
 					break;
 				case "Q":
 					done = true;
@@ -39,7 +45,35 @@ public class MadLibs {
 			}
 			
 		} while(!done);
-			
+		
+		console.close();
+		
 	}
+	
+	/**
+	 * prompts user for file and opens
+	 * @param console
+	 * @return
+	 * @throws FileNotFoundException 
+	 */
+	public static Scanner getInputScanner (Scanner console) throws FileNotFoundException {
+		boolean validFile = false;
+		File f = null;
+		System.out.print("Input file name: ");
+		do {
+			f = new File(console.nextLine());
+			if(f.exists()) {
+				validFile = true;
+			}else {
+				System.out.print("File not found. Try again.");
+			}
+		}while(!validFile);
+		
+		Scanner input = new Scanner(f);
+		return input;
+	}
+	
+	
+	
 
 }
