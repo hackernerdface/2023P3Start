@@ -31,11 +31,15 @@ public class MadLibs {
 			PrintStream output;
 			switch(command.toUpperCase()) {
 				case "C":
+					input = getInputScanner(console);
+					output = System.out;
+					createFile(input, output);
 					break;
 				case "V":
 					input = getInputScanner(console);
 					viewFile(input);
-					input.close();
+					//input.close();
+					
 					break;
 				case "Q":
 					done = true;
@@ -79,6 +83,17 @@ public class MadLibs {
 			System.out.println(input.nextLine());
 		}
 		System.out.println();
+	
+	}
+	
+	/**
+	 * Prints out the file after madlibs
+	 * @param in input
+	 * @param out output
+	 */
+	public static void createFile(Scanner in, PrintStream out) {
+		out.println("TEst");
+		
 	}
 	
 	
