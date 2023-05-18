@@ -32,13 +32,15 @@ public class MadLibs {
 			switch(command.toUpperCase()) {
 				case "C":
 					input = getInputScanner(console);
-					output = System.out;
-					createFile(input, output);
+					output = getOutputPS(console);
+					createFile(input, output, console);
+					input.close();
+					output.close();
 					break;
 				case "V":
 					input = getInputScanner(console);
 					viewFile(input);
-					//input.close();
+					input.close();
 					
 					break;
 				case "Q":
@@ -91,12 +93,44 @@ public class MadLibs {
 	 * @param in input
 	 * @param out output
 	 */
-	public static void createFile(Scanner in, PrintStream out) {
+	public static void createFile(Scanner in, PrintStream out, Scanner console) {
 		out.println("TEst");
-		
+		while(in.hasNextLine()) {
+			String line = in.nextLine();
+			Scanner ls = new Scanner(line);
+			while(ls.hasNext()) {
+				String token = ls.next();
+				if(token.charAt(0)=='<'&&token.charAt(token.length()-1)=='>') {
+					System.out.println("Give me a/an " + token.substring(1, token.length()-1)+" : " );
+					token=console.nextLine();
+				}
+				out.print(token+" ");
+			}
+			out.println();
+		}
+		//out.close();
+		//in.close();
 	}
 	
-	
+	public static PrintStream getOutputPS(Scanner console) {
+		boolean validFile = false;
+		PrintStream ps= null;
+		
+		do {
+			try {
+				System.out.print("output file name: ");
+				File f = new File(console.nextLine());
+				ps = new PrintStream(f);
+				validFile = true;
+			}
+			catch (FileNotFoundException e) {
+				System.out.println("File Exception "+ e);
+			}
+			
+		}while(!validFile);
+		return ps;
+		
+	}
 	
 
 }
