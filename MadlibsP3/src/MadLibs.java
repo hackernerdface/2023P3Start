@@ -34,14 +34,14 @@ public class MadLibs {
 					break;
 				case "V":
 					input = getInputScanner(console);
-					
+					viewFile(input);
 					input.close();
 					break;
 				case "Q":
 					done = true;
 					break;
 				default:
-					System.out.println("Command" + command + "is not supported");
+					System.out.println("Command " + command + "is not supported");
 			}
 			
 		} while(!done);
@@ -71,6 +71,14 @@ public class MadLibs {
 		
 		Scanner input = new Scanner(f);
 		return input;
+	}
+	
+	public static void viewFile(Scanner input) {
+		System.out.println();
+		while(input.hasNextLine()) {
+			System.out.println(input.nextLine());
+		}
+		System.out.println();
 	}
 	
 	
