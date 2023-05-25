@@ -23,9 +23,36 @@ public class BabyNames {
 			if(name.equals("Quit")) {
 				quit = true;
 			}else {
-				System.out.println("Main loop: " + name);
+				String meaning = getMeaning(name, meanings);
+				System.out.println("Name: "+ name + " " +   meaning);
+				if(meaning.equals("Not found")) {
+					continue;
+				}
 			}
 		}
 	}
-
+	
+	/**
+	 * Tries to find meaning for a name
+	 * @param name
+	 * @param meaning
+	 * @return not found if name not in database
+	 */
+	public static String getMeaning(String name, Scanner meanings) {
+		name = name.toUpperCase();
+		while(meanings.hasNextLine()) {
+			Scanner ls = new Scanner(meanings.nextLine());
+				if(name.equals(ls.next())){
+					String gender = ls.next();
+					String meaning = "Meaning";
+					while(ls.hasNext()) {
+						meaning += ls.next() + " ";
+					}
+					return meaning;
+				}
+			}
+		return "Not Found";
+	}
 }
+
+
